@@ -13,6 +13,7 @@ public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long pessoa_id;
     private Integer ddi;
     private Integer ddd;
     private Long numero;
