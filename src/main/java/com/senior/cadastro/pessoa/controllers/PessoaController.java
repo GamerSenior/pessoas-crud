@@ -1,13 +1,14 @@
-package com.senior.cadastro.pessoas;
+package com.senior.cadastro.pessoa.controllers;
 
-import com.senior.cadastro.pessoas.models.Pessoa;
-import com.senior.cadastro.pessoas.repositories.PessoaRepository;
+import com.senior.cadastro.pessoa.models.TesteDTO;
+import com.senior.cadastro.pessoa.repositories.PessoaRepository;
+import com.senior.cadastro.pessoa.models.Pessoa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -32,14 +33,27 @@ public class PessoaController {
         return pessoaRepository.findByNomeContaining(nome, PageRequest.of(pagina, size));
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/")
-    public String cadastrar(Pessoa pessoa) {
+    @PostMapping(path = "/inserir")
+    public ResponseEntity cadastrar(@RequestBody Pessoa pessoa) {
         try {
             pessoaRepository.save(pessoa);
-            return "Salvo com sucesso";
+            return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {
-            return "Erro ao salvar entidade";
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e);
         }
+    }
+
+    @PostMapping("/teste")
+    public String teste(@RequestBody TesteDTO dto){
+        System.out.println(dto);
+        return null;
+    }
+
+    @GetMapping("/teste")
+    public TesteDTO testeGet() {
+        return new TesteDTO("Pamonha", 22);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")

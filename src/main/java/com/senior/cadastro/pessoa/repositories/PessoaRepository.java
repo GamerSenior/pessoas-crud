@@ -1,6 +1,6 @@
-package com.senior.cadastro.pessoas.repositories;
+package com.senior.cadastro.pessoa.repositories;
 
-import com.senior.cadastro.pessoas.models.Pessoa;
+import com.senior.cadastro.pessoa.models.Pessoa;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
