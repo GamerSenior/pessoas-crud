@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PessoaRepository extends CrudRepository<Pessoa, Long> {
     List<Pessoa> findByNomeContaining(String nome, Pageable pageable);
+    Long countPessoaByNomeContaining(String nome);
 }

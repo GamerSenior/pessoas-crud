@@ -20,17 +20,15 @@ public class PessoaController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
-    public List<Pessoa> buscarTodos() {
-        return StreamSupport
-                .stream(pessoaRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
-    }
-
     @GetMapping(params = {"page", "size", "nome"})
     public List<Pessoa> buscarPorNome(@RequestParam("page") int pagina, @RequestParam("size") int size,
                                       @RequestParam("nome") String nome) {
         return pessoaRepository.findByNomeContaining(nome, PageRequest.of(pagina, size));
+    }
+
+    @GetMapping(path = "/count", params = {"nome"})
+    public Long count(@RequestParam("nome") String nome) {
+        return pessoaRepository.countPessoaByNomeContaining(nome);
     }
 
     @PostMapping(path = "/inserir")
