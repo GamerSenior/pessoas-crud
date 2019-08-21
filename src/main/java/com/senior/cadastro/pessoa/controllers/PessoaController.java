@@ -43,17 +43,6 @@ public class PessoaController {
         }
     }
 
-    @PostMapping("/teste")
-    public String teste(@RequestBody TesteDTO dto){
-        System.out.println(dto);
-        return null;
-    }
-
-    @GetMapping("/teste")
-    public TesteDTO testeGet() {
-        return new TesteDTO("Pamonha", 22);
-    }
-
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     public void deletar(@PathVariable Long id) {
         pessoaRepository.deleteById(id);
